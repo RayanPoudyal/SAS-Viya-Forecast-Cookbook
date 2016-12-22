@@ -1,5 +1,5 @@
-# SAS-Viya-Forecast-Cookbook
-SAS Viya forecast code illustrations using the examples in the online book Forecasting: principles and practice by Rob Hyndman and George Athana­sopou­los (https://www.otexts.org/book/fpp)
+# SAS Viya Forecast Cookbook
+In this cookbook we are illustrating the new SAS Viya forecasting procedeures and object packages using the examples in the online book Forecasting: principles and practice by Rob Hyndman and George Athana­sopou­los (https://www.otexts.org/book/fpp)
 
 ##Cookbook Outline
 ###Chapter 1 to 3: getting started, the forecaster's toolbox, and judgemental forecasts
