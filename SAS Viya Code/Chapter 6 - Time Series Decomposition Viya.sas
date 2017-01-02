@@ -41,7 +41,7 @@ run;
                    using Classical Decomposition.
 
    Signature:
-   rc = TSA_SEASONALDECOMP(y,s,mode,lambda,tcc,sic,sc,scstd,tcs,ic,sa,pcsa,tc,cc);
+   rc = TSA.SEASONALDECOMP(y,s,mode,lambda,tcc,sic,sc,scstd,tcs,ic,sa,pcsa,tc,cc);
    
    followings are the vectors this function creates:
    tcc= Trend-cycle component
@@ -63,8 +63,9 @@ proc tsmodel data=mycas.fpp_elecequip
     outarrays vtcc vsc vic vsa;
     require tsa;
     submit;
+        declare object tsa(tsa);
         *mode="add" specifies the additive decomposition;
-        rc = tsa_seasonaldecomp(noi,_seasonality_,"add", ,vtcc, ,vsc , , ,vic,vsa);
+        rc = tsa.seasonaldecomp(noi,_seasonality_,"add", ,vtcc, ,vsc , , ,vic,vsa);
     endsubmit;
 quit;
 
@@ -82,7 +83,7 @@ run;
    Moving Averages.
    MOVING SUMMARY STATISTICS
    Signature
-   rc = TSA_MOVINGSUMMARY(y, method, k, lead, w, setmiss, abs, x, p, nmiss);
+   rc = TSA.MOVINGSUMMARY(y, method, k, lead, w, setmiss, abs, x, p, nmiss);
 */
 proc tsmodel data=mycas.fpp_elecsales
              outarray = mycas.elecsales_ma;
@@ -91,13 +92,14 @@ proc tsmodel data=mycas.fpp_elecsales
     outarrays mean3_gwh mean5_gwh mean7_gwh mean9_gwh;
     require tsa;
     submit;
-    
+        declare object tsa(tsa);
+
         *for centered moving summary, use lead = floor(k/2);
         *method="mean" specifies the moving average;
-        rc = tsa_movingsummary(gwh,"mean", 3, 1, , , ,mean3_gwh); 
-		rc = tsa_movingsummary(gwh,"mean", 5, 2, , , ,mean5_gwh);
-		rc = tsa_movingsummary(gwh,"mean", 7, 3, , , ,mean7_gwh);
-		rc = tsa_movingsummary(gwh,"mean", 9, 4, , , ,mean9_gwh);
+        rc = tsa.movingsummary(gwh,"mean", 3, 1, , , ,mean3_gwh); 
+		rc = tsa.movingsummary(gwh,"mean", 5, 2, , , ,mean5_gwh);
+		rc = tsa.movingsummary(gwh,"mean", 7, 3, , , ,mean7_gwh);
+		rc = tsa.movingsummary(gwh,"mean", 9, 4, , , ,mean9_gwh);
     endsubmit;
 quit;
 
@@ -115,8 +117,9 @@ proc tsmodel data=mycas.fpp_ausbeer
     outarrays mean4_aus_beer mean2x4_aus_beer;
     require tsa;
     submit;
-        rc = tsa_movingsummary(aus_beer,"mean", 4, 2, ,"missing", ,mean4_aus_beer);
-        rc = tsa_movingsummary(mean4_aus_beer,"mean", 2, 0, ,"missing", ,mean2x4_aus_beer);
+        declare object tsa(tsa);
+        rc = tsa.movingsummary(aus_beer,"mean", 4, 2, ,"missing", ,mean4_aus_beer);
+        rc = tsa.movingsummary(mean4_aus_beer,"mean", 2, 0, ,"missing", ,mean2x4_aus_beer);
     endsubmit;
 quit;
 
@@ -133,7 +136,8 @@ proc tsmodel data=mycas.fpp_elecequip
     outarrays mean12_noi mean2x12_noi;
     require tsa;
     submit;
-        rc = tsa_movingsummary(noi,"mean", 12, 6, ,"missing", ,mean12_noi);
-        rc = tsa_movingsummary(mean12_noi,"mean", 2, 0, ,"missing", ,mean2x12_noi);
+        declare object tsa(tsa);
+        rc = tsa.movingsummary(noi,"mean", 12, 6, ,"missing", ,mean12_noi);
+        rc = tsa.movingsummary(mean12_noi,"mean", 2, 0, ,"missing", ,mean2x12_noi);
     endsubmit;
 quit;

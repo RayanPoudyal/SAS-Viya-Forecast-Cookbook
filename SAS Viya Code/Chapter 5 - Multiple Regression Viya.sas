@@ -104,17 +104,19 @@ proc tsmodel data=mycas.fpp_ausbeer_fitted
 	outarrays acf outarrays lags df wn wnprob wnlprob;
 	require tsa;
 	submit;
+        declare object tsa(tsa);
+
         /* AUTOCORRELATION: This function computes autocorrelation and auto covariance for a time series array.
            Signature:
-           rc = TSA_ACF(y, nlag, lags, df, mu, acov, acf, acfstd, acf2std, acfnorm, acfprob, acflprob);
+           rc = TSA.ACF(y, nlag, lags, df, mu, acov, acf, acfstd, acf2std, acfnorm, acfprob, acflprob);
         */
-        rc = tsa_acf(residual, 16, , , , , acf);
+        rc = tsa.acf(residual, 16, , , , , acf);
         
         /* WHITE NOISE: This function performs the white noise test for a time series array.
            Signature:
-           rc = TSA_WHITENOISE(y, nlag, lags, df, wn, wnprob, wnlprob);
+           rc = TSA.WHITENOISE(y, nlag, lags, df, wn, wnprob, wnlprob);
         */
-        rc = tsa_whitenoise(residual, 3, lags,df, wn, wnprob, wnlprob);
+        rc = tsa.whitenoise(residual, 3, lags,df, wn, wnprob, wnlprob);
 	endsubmit;
 quit;
 

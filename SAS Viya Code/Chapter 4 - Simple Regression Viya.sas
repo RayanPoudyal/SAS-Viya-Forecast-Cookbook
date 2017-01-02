@@ -159,12 +159,13 @@ proc tsmodel data=mycas.fpp_usconsumption_errors
 	var residual;
 	outarrays acf;
 	submit;
+        declare object tsa(tsa); 
         /* AUTOCORRELATION: This function computes autocorrelation and auto covariance for a time series array.
             Signature:
-            rc = TSA_ACF(y, nlag, lags, df, mu, acov, acf, acfstd, acf2std, acfnorm, acfprob, acflprob);
+            rc = TSA.ACF(y, nlag, lags, df, mu, acov, acf, acfstd, acf2std, acfnorm, acfprob, acflprob);
         */
         *to calculate autocorrelation of residuals with lags 1 to 21;
-		rc = tsa_acf(residual, 21, , , , , acf);
+		rc = tsa.acf(residual, 21, , , , , acf);
 	endsubmit;
 quit;
 
@@ -184,8 +185,9 @@ proc tsmodel data=mycas.fpp_austa_errors
 	var residual;
 	outarrays acf;
 	submit;
+        declare object tsa(tsa);
         *calculate autocorrelation of residuals with lags 1 to 13;
-		rc = tsa_acf(residual, 13, , , , , acf);
+		rc = tsa.acf(residual, 13, , , , , acf);
 	endsubmit;
 quit;
 
@@ -214,6 +216,7 @@ proc tsmodel data=mycas.spurious_errors
 	var residual;
 	outarrays acf;
 	submit;
-		rc = tsa_acf(residual, 21, , , , , acf);
+        declare object tsa(tsa);
+		rc = tsa.acf(residual, 21, , , , , acf);
 	endsubmit;
 quit;;
