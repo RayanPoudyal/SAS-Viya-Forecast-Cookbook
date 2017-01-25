@@ -42,7 +42,7 @@ quit;
 proc regselect data=mycas.fpp_credit;
 	model score = log_savings log_income log_address log_employed;
 	output out=mycas.fpp_credit_fitted
-	copyvars=score residual pred; 
+	copyvars=(score) residual pred; 
 	/* This command copies the actual values from the original data table
 	and calculates residuals and fitted values*/
 run;
@@ -93,7 +93,7 @@ quit;
 proc regselect data=mycas.fpp_ausbeer;
 	model aus_beer = _cycle_ q2 q3 q4;
 	output out=mycas.fpp_ausbeer_fitted
-	copyvars=aus_beer date residual;
+	copyvars=(aus_beer date) residual;
 run;
 
 *diagnose regression residuals;
@@ -137,7 +137,7 @@ proc regselect data=mycas.fuel_nonlinear;
 run;
 
 /*regression splines*/
-data mycas.fuel_nonlinear_2/sessref = mycas;
+data mycas.fuel_nonlinear_2;
 	set time.fpp_fuel;
 	if city < 25 then under_25 = 0; else under_25 = city - 25;
 	city2 = city**2;

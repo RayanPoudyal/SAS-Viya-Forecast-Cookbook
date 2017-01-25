@@ -25,7 +25,7 @@ proc regselect data=mycas.fpp_fuel;
     
     *output the residules and copy the predictor variable City to the output table;
 	output out=mycas.fpp_fuel_residual residual
-	       copyvars = city; 
+	       copyvars = (city); 
 run;
 
 /**** 4.5 Forecasting with Regression ****/
@@ -57,7 +57,7 @@ proc regselect data=mycas.fpp_fuel_2 alpha=0.2;
 	model carbon = city;
     *output upper (UCL) and lower (LCL) bound limit for fitted values;
 	output out=mycas.fpp_fuel_pred ucl lcl 
-	       copyvars = city; 
+	       copyvars = (city); 
     
     *partition observations with value status='group1' as the test group and status='group2' as the train group;
 	partition rolevar=status(test='group1' train='group2'); 
@@ -78,7 +78,7 @@ proc regselect data=mycas.fpp_fuel;
 
     *output the residules and copy the predictor variable Log_City to the output table;
 	output out=mycas.fpp_fuel_log_residual residual
-	       copyvars = log_city;
+	       copyvars = (log_city);
 run;
 
 /**** 4.8 Regression with Time Series Data ****/
@@ -95,7 +95,7 @@ run;
 proc regselect data=mycas.fpp_usconsumption;
 	model consumption = income;
 	output out=mycas.fpp_usconsumption_errors
-	copyvars = date residual;
+	copyvars = (date) residual;
 run;
 
 /* Scenario based forecasting */
@@ -117,7 +117,7 @@ run;
 proc regselect data=mycas.fpp_usconsumption;
 	model consumption = income /clb;
 	output out=mycas.fpp_usconsumption_pred ucl lcl
-	copyvars = income pred;
+	copyvars = (income) pred;
 run;
 
 /** Example 4.4 Linear trend **/
@@ -128,7 +128,7 @@ run;
 proc regselect data=mycas.fpp_austa;
 	model tourist_arrivals = year;
 	output out = mycas.fpp_austa_errors residual
-	copyvars = year;
+	copyvars = (year);
 run;
 
 data mycas.extra;
@@ -148,7 +148,7 @@ run;
 proc regselect data=mycas.fpp_austa;
 	model tourist_arrivals = year;
 	output out = mycas.fpp_austa_pred ucl lcl pred
-	copyvars = year;
+	copyvars = (year);
 run;
 
 /*Residual autocorrelation*/
@@ -200,7 +200,7 @@ run;
 proc regselect data=mycas.spurious;
 	model passengers = rice;
 	output out=mycas.spurious_errors residual
-	copyvars = year;
+	copyvars = (year);
 run;
 
 data mycas.spurious_errors;
